@@ -1,0 +1,66 @@
+=== JAVA MAP ===
+
+# 1. Types of Maps
+----------------------------------------
+| Map Type              | Ordering          | Null Keys/Values                     | Thread-Safe |
+|----------------------|----------------    |---------------                       |------------|
+| HashMap<K, V>         | Unordered         | ✅ 1 null key, multiple null values  | ❌ No |
+| LinkedHashMap<K, V>   | Insertion order   | ✅ 1 null key, multiple null values  | ❌ No |
+| TreeMap<K, V>         | Sorted (ascending)| ❌ No null keys, ✅ null values      |  ❌ No |
+| Hashtable<K, V>       | Unordered         | ❌ No null keys or values            | ✅ Yes |
+| ConcurrentHashMap<K, V> | Unordered       | ❌ No null keys or values            | ✅ Yes |
+
+# 2. Basic Map Operations
+----------------------------------------
+Map<String, Integer> map = new HashMap<>();
+map.put("Alice", 25);  // Add key-value pair
+map.get("Alice");  // Get value (25)
+map.containsKey("Bob");  // Check key exists
+map.containsValue(30);  // Check value exists
+map.remove("Alice");  // Remove a key-value pair
+map.size();  // Get map size
+map.clear();  // Clear the map
+
+# 3. Iterating Over a Map
+----------------------------------------
+## For-each loop
+for (Map.Entry<String, Integer> entry : map.entrySet()) {
+    System.out.println(entry.getKey() + " -> " + entry.getValue());
+}
+
+## Using forEach (Lambda)
+map.forEach((key, value) -> System.out.println(key + " -> " + value));
+
+## Using Iterator
+Iterator<Map.Entry<String, Integer>> iterator = map.entrySet().iterator();
+while (iterator.hasNext()) {
+    Map.Entry<String, Integer> entry = iterator.next();
+    System.out.println(entry.getKey() + " -> " + entry.getValue());
+}
+
+# 4. Sorting a Map
+----------------------------------------
+## Sort by Keys (TreeMap)
+Map<String, Integer> sortedMap = new TreeMap<>(map);
+
+## Sort by Values
+map.entrySet()
+   .stream()
+   .sorted(Map.Entry.comparingByValue())
+   .forEach(entry -> System.out.println(entry.getKey() + " -> " + entry.getValue()));
+
+# 5. Thread-Safe Maps
+----------------------------------------
+## Synchronized HashMap
+Map<String, Integer> syncMap = Collections.synchronizedMap(new HashMap<>());
+
+## ConcurrentHashMap
+Map<String, Integer> concurrentMap = new ConcurrentHashMap<>();
+
+# 6. When to Use What?
+----------------------------------------
+- Use **HashMap** for **fast lookups** (O(1) time complexity)
+- Use **LinkedHashMap** when **ordering matters** (insertion order)
+- Use **TreeMap** when **sorting by key** is required (O(log n) complexity)
+- Use **ConcurrentHashMap** for **multi-threaded applications**
+

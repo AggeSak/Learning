@@ -1,0 +1,66 @@
+=== JAVA LIST CHEATSHEET ===
+
+# 1. Types of Lists
+----------------------------------------
+| List Type               | Ordering              | Allows Duplicates | Thread-Safe |
+|----------------------   |----------------       |----------------   |------------ |
+| ArrayList<E>            | Yes (Insertion order) | ✅ Yes           || ❌ No      |
+| LinkedList<E>           | Yes (Insertion order) | ✅ Yes           | ❌ No       |
+| Vector<E>               | Yes (Insertion order) | ✅ Yes           | ✅ Yes      |
+| Stack<E>                | Yes (LIFO)            | ✅ Yes           | ✅ Yes      |
+| CopyOnWriteArrayList<E> | Yes (Insertion order) | ✅ Yes           | ✅ Yes      |
+
+# 2. Basic List Operations
+----------------------------------------
+List<String> list = new ArrayList<>();
+list.add("Alice");  // Add element
+list.get(0);  // Get element at index 0
+list.set(0, "Bob");  // Update element at index 0
+list.remove("Alice");  // Remove element by value
+list.remove(0);  // Remove element by index
+list.contains("Bob");  // Check if element exists
+list.size();  // Get list size
+list.clear();  // Clear the list
+
+# 3. Iterating Over a List
+----------------------------------------
+## For-each loop
+for (String item : list) {
+    System.out.println(item);
+}
+
+## Using forEach (Lambda)
+list.forEach(item -> System.out.println(item));
+
+## Using Iterator
+Iterator<String> iterator = list.iterator();
+while (iterator.hasNext()) {
+    System.out.println(iterator.next());
+}
+
+# 4. Sorting a List
+----------------------------------------
+## Sort using Collections.sort()
+Collections.sort(list);  // Sorts in ascending order
+
+## Sort in Reverse Order
+Collections.sort(list, Collections.reverseOrder());
+
+## Sort using Comparator
+list.sort(Comparator.comparing(String::length));  // Sort by string length
+
+# 5. Thread-Safe Lists
+----------------------------------------
+## Synchronized List
+List<String> syncList = Collections.synchronizedList(new ArrayList<>());
+
+## CopyOnWriteArrayList (Better for concurrency)
+List<String> concurrentList = new CopyOnWriteArrayList<>();
+
+# 6. When to Use What?
+----------------------------------------
+- Use **ArrayList** for **fast access** (O(1) random access, O(n) for insert/delete)
+- Use **LinkedList** for **fast insert/delete** (O(1) insert/remove, O(n) access)
+- Use **Vector** for **thread-safe operations** (synchronized ArrayList alternative)
+- Use **Stack** when **LIFO (Last-In-First-Out) behavior** is required
+- Use **CopyOnWriteArrayList** for **thread-safe, concurrent reads**
